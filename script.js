@@ -154,3 +154,20 @@ const inventories = [
         description: "Ergonomic chair with lumbar support for long gaming sessions."
     }
 ]
+const landing = document.getElementById('landing')
+const productList = document.getElementById('product-list')
+const productDetails = document.getElementById('product-details')
+const cart = document.getElementById('cart')
+const productNav = document.getElementById('products nav')
+
+const cartItems = [landing, productList, productDetails, cart]
+
+const showSection = (sectionShow) => {
+    cartItems.forEach(section => {
+        if (section === sectionShow) {
+            section.classList.remove('hidden')
+        } else {
+            section.classList.add('hidden')
+        }
+    })
+}
