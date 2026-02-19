@@ -156,14 +156,15 @@ const inventories = [
 ]
 const landing = document.getElementById('landing')
 const productList = document.getElementById('product-list')
-const productDetails = document.getElementById('product-details')
+const productDetails = document.getElementById('products-details')
 const cart = document.getElementById('cart')
 const productNav = document.getElementById('products nav')
 
-const cartItems = [landing, productList, productDetails, cart]
+const allSections = [landing, productList, productDetails, cart]
+const navButtons = document.querySelectorAll('.nav-items a')
 
 const showSection = (sectionShow) => {
-    cartItems.forEach(section => {
+    allSections.forEach(section => {
         if (section === sectionShow) {
             section.classList.remove('hidden')
         } else {
@@ -171,3 +172,17 @@ const showSection = (sectionShow) => {
         }
     })
 }
+
+navButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault()
+
+            if (button.id === 'products') {
+                showSection(productList)
+            } else if (button.id === 'home') {
+                showSection(landing)
+            } else if (button.id === 'cart-link') {
+                showSection(cart)
+            } 
+        })
+    })
