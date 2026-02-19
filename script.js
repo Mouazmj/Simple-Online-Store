@@ -186,3 +186,18 @@ navButtons.forEach(button => {
             } 
         })
     })
+
+    const renderProducts = () => {
+        inventories.forEach(product => {
+            const productCard = document.createElement('div')
+            productCard.classList.add('product-card')
+            productCard.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <p>${product.price}</p>
+            <button class="product-details" data-id="${product.id}">View Details</button>
+            <button class="add-to-cart" data-id="${product.id}">Select</button>
+            `
+            productList.appendChild(productCard)
+        })
+    }
