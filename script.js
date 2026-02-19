@@ -201,3 +201,18 @@ navButtons.forEach(button => {
             productList.appendChild(productCard)
         })
     }
+
+    productList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('product-details')) {
+                    const productId = e.target.getAttribute('data-id')
+                    const product = inventories.find(p => p.id === parseInt(productId))
+                    if (product) {
+                        productDetails.innerHTML = `
+                            <h2>Name: ${product.name}</h2>
+                            <p>Description: ${product.description}</p>
+                            <p>Price: $${product.price}</p>
+                        `
+                        showSection(productDetails)
+                    }
+                }
+            })
