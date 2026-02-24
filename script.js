@@ -21,8 +21,8 @@ const showSection = (sectionShow) => {
         }
     })
 }
-// Event listners for navigation buttons
-navButtons.forEach(button => {
+// Event listners for navigation buttons, on what section to shwo whena a button is clicked
+navButtons.forEach(button => {v
         button.addEventListener('click', (event) => {
             event.preventDefault()
 
@@ -50,7 +50,7 @@ navButtons.forEach(button => {
             productList.appendChild(productCard) // product-details is class for the details button and add-to-cart is the class for the select button
         })
     }
-    // Initial render of products
+    // Initial render of products to show in the product list section
     productList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('product-details')) {
                     const productId = e.target.getAttribute('data-id')
@@ -63,19 +63,40 @@ navButtons.forEach(button => {
                         `
                         showSection(productDetails)
                     }
-                } else if (e.target.classList.contains('add-to-cart')) {
-                    const productId = e.target.getAttribute('data-id')
-                    const product = inventories.find(p => p.id === parseInt(productId))
-                    if (product) {
-                        shoppingCart.push(product)
-                        alert(`${product.name} added to cart!`)
-                        cart.innerHTML = `
-                        <h2>Shopping Cart</h2>
+                }
+            })
+            // Function to update the shopping cart UI
+            const updateCartUI = () => {
+                cart.innerHTML = '<h2>Shopping Cart</h2>'
+                if (shoppingCart.length > 0) {
+                    cart.innerHTML += `
                         <ul>
                             ${shoppingCart.map(item => `<li>${item.name} - $${item.price}  <button class="remove-cart-items" data-id="${item.id}">Remove Item</button></li>`).join('')}
                         </ul>
                         Total Price: $${shoppingCart.reduce((total, item) => total + item.price, 0)}
-                        `
+                    `
+                }
+            }
+            // Event listner for the add to cart button and the remove from cart button
+            productList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart')) {
+                    const productId = e.target.getAttribute('data-id')
+                    const product = inventories.find(p => p.id === parseInt(productId))
+                    if (product) {
+                        shoppingCart.push(product)
+                        alert(`Added ${product.name} to cart!`)
+                        updateCartUI()
+                    } 
+                }
+            })
+            // Event listner for the remove from cart button
+            cart.addEventListener('click', (e) => {
+                if ( e.target.classList.contains('remove-cart-items')) {
+                    const productId = e.target.getAttribute('data-id')
+                    const index = shoppingCart.findIndex(item => item.id === parseInt(productId))
+                    if (index !== -1) {
+                        shoppingCart.splice(index, 1)
+                        updateCartUI()
                     }
                 }
             })
