@@ -3,7 +3,7 @@ import { inventories } from "./info"
 let shoppingCart = []
 // Sections
 const landing = document.getElementById('landing')
-const productList = document.getElementById('product-list')
+const productList = document.getElementById('products-list')
 const productDetails = document.getElementById('products-details')
 const cart = document.getElementById('cart')
 const allSections = [landing, productList, productDetails, cart]
@@ -39,11 +39,11 @@ navButtons.forEach(button => {
     const renderProducts = () => {
         inventories.forEach(product => {
             const productCard = document.createElement('div')
-            productCard.classList.add('product-card')
+            productCard.classList.add('product-card') // The class of the products div - important
             productCard.innerHTML = `
             <h3>${product.name}</h3>
             <p>${product.description}</p>
-            <p>${product.price}</p>
+            <p>$${product.price}</p>
             <button class="product-details" data-id="${product.id}">View Details</button>
             <button class="add-to-cart" data-id="${product.id}">Select</button>
             `
@@ -66,4 +66,10 @@ navButtons.forEach(button => {
                 }
             })
 
-          
+          console.log('Inventories loaded:', inventories)
+          console.log('Product list element:', productList)
+          console.log('Product details element:', productDetails)
+          console.log('Cart element:', cart)
+
+          renderProducts()
+          showSection(landing)
