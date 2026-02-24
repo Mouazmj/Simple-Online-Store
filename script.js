@@ -47,7 +47,7 @@ navButtons.forEach(button => {
             <button class="product-details" data-id="${product.id}">View Details</button>
             <button class="add-to-cart" data-id="${product.id}">Select</button>
             `
-            productList.appendChild(productCard)
+            productList.appendChild(productCard) // product-details is class for the details button and add-to-cart is the class for the select button
         })
     }
     // Initial render of products
@@ -62,6 +62,20 @@ navButtons.forEach(button => {
                             <p>Price: $${product.price}</p>
                         `
                         showSection(productDetails)
+                    }
+                } else if (e.target.classList.contains('add-to-cart')) {
+                    const productId = e.target.getAttribute('data-id')
+                    const product = inventories.find(p => p.id === parseInt(productId))
+                    if (product) {
+                        shoppingCart.push(product)
+                        alert(`${product.name} added to cart!`)
+                        cart.innerHTML = `
+                        <h2>Shopping Cart</h2>
+                        <ul>
+                            ${shoppingCart.map(item => `<li>${item.name} - $${item.price}  <button class="remove-cart-items" data-id="${item.id}">Remove Item</button></li>`).join('')}
+                        </ul>
+                        Total Price: $${shoppingCart.reduce((total, item) => total + item.price, 0)}
+                        `
                     }
                 }
             })
