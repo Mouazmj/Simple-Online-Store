@@ -11,6 +11,15 @@ const allSections = [landing, productList, productDetails, cart]
 //Navigation bar
 const navButtons = document.querySelectorAll('.nav-items a')
 
+const addToCart = (id) => {
+    const productId = inventories.find(p => p.id === parseInt(id))
+    if (productId) {
+        shoppingCart.push(productId)
+        alert(`Added ${productId.name} to cart!`)
+    }
+    updateCartUI()
+}
+
 // Function to show a specific section and hide others
 const showSection = (sectionShow) => {
     allSections.forEach(section => {
@@ -22,7 +31,7 @@ const showSection = (sectionShow) => {
     })
 }
 // Event listners for navigation buttons, on what section to shwo whena a button is clicked
-navButtons.forEach(button => {v
+navButtons.forEach(button => {
         button.addEventListener('click', (event) => {
             event.preventDefault()
 
@@ -60,11 +69,27 @@ navButtons.forEach(button => {v
                             <h2>Name: ${product.name}</h2>
                             <p>Description: ${product.description}</p>
                             <p>Price: $${product.price}</p>
+                            <button class="add-to-cart" data-id="${product.id}">Select</button>
                         `
                         showSection(productDetails)
                     }
+                    // Event listner for the add to cart button and the remove from cart button
+                } else if (e.target.classList.contains('add-to-cart')) {
+                    const productId = e.target.getAttribute('data-id')
+                        addToCart(productId)
+                        updateCartUI() 
                 }
             })
+
+            productDetails.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart')) {
+                    const productId = e.target.getAttribute('data-id')
+                    addToCart(productId)
+                    updateCartUI()
+                }
+            })
+               
+    
             // Function to update the shopping cart UI
             const updateCartUI = () => {
                 cart.innerHTML = '<h2>Shopping Cart</h2>'
@@ -77,18 +102,7 @@ navButtons.forEach(button => {v
                     `
                 }
             }
-            // Event listner for the add to cart button and the remove from cart button
-            productList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart')) {
-                    const productId = e.target.getAttribute('data-id')
-                    const product = inventories.find(p => p.id === parseInt(productId))
-                    if (product) {
-                        shoppingCart.push(product)
-                        alert(`Added ${product.name} to cart!`)
-                        updateCartUI()
-                    } 
-                }
-            })
+
             // Event listner for the remove from cart button
             cart.addEventListener('click', (e) => {
                 if ( e.target.classList.contains('remove-cart-items')) {
