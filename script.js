@@ -3,10 +3,16 @@ import { inventories } from "./info"
 let shoppingCart = []
 // Sections
 const landing = document.getElementById('landing')
+
 const productList = document.getElementById('products-list')
+const emptyProductList = document.getElementById('emptyproductlist')
+
 const productDetails = document.getElementById('products-details')
 const emptyDetails = document.getElementById('emptyproductdetails')
+
 const cart = document.getElementById('cart')
+const emptyCart = document.getElementById('emptycart')
+
 const allSections = [landing, productList, productDetails, cart]
 
 //Navigation bar
@@ -57,7 +63,7 @@ navButtons.forEach(button => {
             <button class="product-details" data-id="${product.id}">View Details</button>
             <button class="add-to-cart" data-id="${product.id}">Select</button>
             `
-            productList.appendChild(productCard) // product-details is class for the details button and add-to-cart is the class for the select button
+            emptyProductList.appendChild(productCard) // product-details is class for the details button and add-to-cart is the class for the select button
         })
     }
     // Initial render of products to show in the product list section
@@ -94,9 +100,9 @@ navButtons.forEach(button => {
     
             // Function to update the shopping cart UI
             const updateCartUI = () => {
-                cart.innerHTML = '<h2>Shopping Cart</h2>'
+                emptyCart.innerHTML = ''
                 if (shoppingCart.length > 0) {
-                    cart.innerHTML += `
+                    emptyCart.innerHTML = `
                         <ul>
                             ${shoppingCart.map(item => `<li>${item.name} - $${item.price}  <button class="remove-cart-items" data-id="${item.id}">Remove Item</button></li>`).join('')}
                         </ul>
@@ -106,7 +112,7 @@ navButtons.forEach(button => {
             }
 
             // Event listner for the remove from cart button
-            cart.addEventListener('click', (e) => {
+            emptyCart.addEventListener('click', (e) => {
                 if ( e.target.classList.contains('remove-cart-items')) {
                     const productId = e.target.getAttribute('data-id')
                     const index = shoppingCart.findIndex(item => item.id === parseInt(productId))
@@ -120,7 +126,7 @@ navButtons.forEach(button => {
           console.log('Inventories loaded:', inventories)
           console.log('Product list element:', productList)
           console.log('Product details element:', productDetails)
-          console.log('Cart element:', cart)
+          console.log('Cart element:', emptyCart)
 
           renderProducts()
           showSection(landing)
