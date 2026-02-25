@@ -70,14 +70,13 @@ navButtons.forEach(button => {
                             <p>Description: ${product.description}</p>
                             <p>Price: $${product.price}</p>
                             <button class="add-to-cart" data-id="${product.id}">Select</button>
+                            <button id="back-to-products" class="back-button">Back to Products</button>
                         `
-                        showSection(productDetails)
                     }
                     // Event listner for the add to cart button and the remove from cart button
                 } else if (e.target.classList.contains('add-to-cart')) {
                     const productId = e.target.getAttribute('data-id')
-                        addToCart(productId)
-                        updateCartUI() 
+                        addToCart(productId) 
                 }
             })
 
@@ -85,8 +84,9 @@ navButtons.forEach(button => {
                 if (e.target.classList.contains('add-to-cart')) {
                     const productId = e.target.getAttribute('data-id')
                     addToCart(productId)
-                    updateCartUI()
-                }
+                }  else if (e.target.id === 'back-to-products') {
+                        showSection(productList)
+                    }
             })
                
     
