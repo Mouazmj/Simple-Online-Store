@@ -5,6 +5,7 @@ let shoppingCart = []
 const landing = document.getElementById('landing')
 const productList = document.getElementById('products-list')
 const productDetails = document.getElementById('products-details')
+const emptyDetails = document.getElementById('emptyproductdetails')
 const cart = document.getElementById('cart')
 const allSections = [landing, productList, productDetails, cart]
 
@@ -65,13 +66,14 @@ navButtons.forEach(button => {
                     const productId = e.target.getAttribute('data-id')
                     const product = inventories.find(p => p.id === parseInt(productId))
                     if (product) {
-                        productDetails.innerHTML = `
+                        emptyDetails.innerHTML = `
                             <h2>Name: ${product.name}</h2>
                             <p>Description: ${product.description}</p>
                             <p>Price: $${product.price}</p>
                             <button class="add-to-cart" data-id="${product.id}">Select</button>
                             <button id="back-to-products" class="back-button">Back to Products</button>
                         `
+                        showSection(productDetails) // Show the product details section when the details button is clicked
                     }
                     // Event listner for the add to cart button and the remove from cart button
                 } else if (e.target.classList.contains('add-to-cart')) {
