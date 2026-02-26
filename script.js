@@ -106,7 +106,7 @@ navButtons.forEach(button => {
                         <ul>
                             ${shoppingCart.map(item => `<li>${item.name} - $${item.price}  <button class="remove-cart-items" data-id="${item.id}">Remove Item</button></li>`).join('')}
                         </ul>
-                        Total Price: $${shoppingCart.reduce((total, item) => total + item.price, 0)}
+                        <p id="cart-total">Total Price: $${shoppingCart.reduce((total, item) => total + item.price, 0)}</p>
                     `
                 }
             }
