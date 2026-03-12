@@ -1,4 +1,4 @@
-import { inventories } from "./info"
+import { inventories } from "./info.js"
 
 let shoppingCart = []
 // Sections
