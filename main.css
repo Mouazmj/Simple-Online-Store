@@ -79,6 +79,11 @@ button {
 .add-to-cart {
     background-color: #28a745;
     color: white;
+    transition: transform 0.1s;
+}
+
+.add-to-cart:active {
+    transform: scale(0.95);
 }
 
 .product-details {
@@ -143,4 +148,20 @@ button {
     font-weight: bold;
     font-size: 1.2rem;
     color: #555;
+}
+
+.active {
+    border-bottom: 2px solid #007bff;
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 150px;
+    background-color: #eee;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.8rem;
 }

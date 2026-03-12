@@ -39,27 +39,32 @@ const showSection = (sectionShow) => {
 }
 // Event listners for navigation buttons, on what section to shwo whena a button is clicked
 navButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault()
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
 
-            if (button.id === 'products') {
-                showSection(productList)
-            } else if (button.id === 'home') {
-                showSection(landing)
-            } else if (button.id === 'cart-link') {
-                showSection(cart)
-            } 
-        })
-    })
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        
+        button.classList.add('active');
+
+        if (button.id === 'products') {
+            showSection(productList);
+        } else if (button.id === 'home') {
+            showSection(landing);
+        } else if (button.id === 'cart-link') {
+            showSection(cart);
+        }
+    });
+});
     // Function to render products on the product list section
     const renderProducts = () => {
         inventories.forEach(product => {
             const productCard = document.createElement('div')
             productCard.classList.add('product-card') // The class of the products div - important
             productCard.innerHTML = `
+            <div class="product-image-placeholder">Product Image</div>
             <h3>${product.name}</h3>
             <p>${product.description}</p>
-            <p>$${product.price}</p>
+            <p class="price">$${product.price}</p>
             <button class="product-details" data-id="${product.id}">View Details</button>
             <button class="add-to-cart" data-id="${product.id}">Select</button>
             `
@@ -73,9 +78,10 @@ navButtons.forEach(button => {
                     const product = inventories.find(p => p.id === parseInt(productId))
                     if (product) {
                         emptyDetails.innerHTML = `
+                            <div class="product-image-placeholder">Product Image</div>
                             <h2>Name: ${product.name}</h2>
                             <p>Description: ${product.description}</p>
-                            <p>Price: $${product.price}</p>
+                            <p class="price">Price: $${product.price}</p>
                             <button class="add-to-cart" data-id="${product.id}">Select</button>
                             <button id="back-to-products" class="back-button">Back to Products</button>
                         `
@@ -108,6 +114,8 @@ navButtons.forEach(button => {
                         </ul>
                         <p id="cart-total">Total Price: $${shoppingCart.reduce((total, item) => total + item.price, 0)}</p>
                     `
+                } else {
+                    emptyCart.innerHTML = '<p>Your cart is empty.</p>'
                 }
             }
 
